@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>REAP</title>
+    <link th:href="@{'/stylesheets/application.css'}" rel="stylesheet"/>
+    <link th:href="@{'/bootstrap-3.3.7-dist/css/bootstrap.css'}" rel="stylesheet"/>
+    <script th:src="@{'/javascript/jquery-3.3.1.min.js'}"></script>
+    <script th:src="@{'/bootstrap-3.3.7-dist/js/bootstrap.js'}"></script>
+
+</head>
+
+<body>
+<div id="container-fluid">
+    <!--Header Section-->
+    <header th:insert="layouts/index.html :: header"></header>
+    <div id="middle-section">
+        <div id="imagelogo">
+            <img th:src="@{'/images/reapLogo.jpg'}">
+            <div id="container">
+                <!-- LOGIN SECTION -->
+                <div class="login">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login">
+                        Login
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="login" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Login</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- <p>Invitation Sent Successfully!</p> -->
+                                    <div class="panel panel-primary">
+                                        <!--<div class="panel-heading">Login</div>-->
+                                        <div class="panel-body">
+
+
+                                            <form class="form-horizontal" th:action="@{'/usersubmit'}" method="post">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2"
+                                                           for="userName">Username:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="userName"
+                                                               placeholder="Enter Username"
+                                                               name="username">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2"
+                                                           for="loginpwd">Password:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" class="form-control" id="loginpwd"
+                                                               placeholder="Enter Password"
+                                                               name="password">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="modal-footer">
+                                                    <div class="form-group">
+                                                        <a href="#" data-toggle="modal" data-target="#forgotPassword">Forgot
+                                                            Password</a>
+                                                        <button type="submit" class="btn btn-primary">Sign In</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- SIGNUP SECTION -->
+                <div class="signUp">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup">
+                        Sign Up
+                    </button>
+                    <div class="modal fade" id="signup" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Sign Up</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="panel panel-primary">
+                                        <!--<div class="panel-heading">Sign Up</div>-->
+                                        <div class="panel-body">
+
+
+                                            <form enctype="multipart/form-data" class="form-horizontal"
+                                                  th:action="@{'/usersubmit'}" th:Object="${user}" method="post">
+                                                <!-- FirstName -->
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2"
+                                                           for="firstName">FirstName:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" th:field="*{firstName}" class="form-control"
+                                                               id="firstName" placeholder="Enter FirstName"
+                                                               name="email">
+                                                    </div>
+                                                </div>
+                                                <!-- LastName -->
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2"
+                                                           for="lastName">LastName:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" th:field="*{lastName}" class="form-control"
+                                                               id="lastName" placeholder="Enter LastName"
+                                                               name="email">
+                                                    </div>
+                                                </div>
+                                                <!-- Add Photo -->
+                                                <div class="form-group">
+                                                    <div class="custom-file">
+                                                        <label class="custom-file-label control-label col-sm-2"
+                                                               for="customFile">Photo:</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" class="custom-file-input form-control"
+                                                                   id="customFile">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Email Address -->
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2" for="email">Email:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" th:field="*{email}" class="form-control"
+                                                               id="email"
+                                                               placeholder="abc@tothenew.com"
+                                                               name="email">
+                                                    </div>
+                                                </div>
+                                                <!-- Password -->
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2" for="pwd">Password:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" th:field="*{password}"
+                                                               class="form-control"
+                                                               id="pwd" placeholder="Enter Password"
+                                                               name="pwd">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="modal-footer">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-2 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Register
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORGOT PASSWORD MODAL SECTION -->
+                <div class="modal fade" id="forgotPassword" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Forgot Password</h4>
+                            </div>
+                            <div class="modal-body">
+                                <!-- <p>Invitation Sent Successfully!</p> -->
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        <form class="form-horizontal" action="#">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-2" for="email">Email:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="email" class="form-control" id="email"
+                                                           placeholder="abc@tothenew.com"
+                                                           name="email">
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+
+                                    <button type="button" class="btn btn-primary">Send Password</button>
+
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <footer th:insert="layouts/index.html :: footer"></footer>
+</div>
+</body>
+
+</html>

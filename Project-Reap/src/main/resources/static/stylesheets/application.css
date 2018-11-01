@@ -1,0 +1,26 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+footer {
+    background-color: aquamarine;
+}
+
+/* #imagelogo img{
+    position: relative;
+} */
+#container {
+    margin-left: 20%;
+    display: flex;
+    /* position:absolute; */
+    z-index: 1;
+}
+
+.navbar-brand img {
+    height: 155%;
+}
+
+.container-fluid form {
+    float: right !important;
+}
