@@ -15,11 +15,15 @@ public class UserService {
 
     public User update(User user) {
         Iterator<User> iterator = userRepository.findAll().iterator();
-        if (!iterator.hasNext()) {
-            userRepository.save(user);
-        } else {
+        if (iterator.hasNext()) {
             userRepository.save(user);
         }
         return user;
     }
+
+    public User findByUsername(String username) {
+        return userRepository.getUsername(username);
+    }
+
+
 }

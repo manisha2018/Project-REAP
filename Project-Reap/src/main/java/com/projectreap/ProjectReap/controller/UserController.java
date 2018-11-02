@@ -4,7 +4,9 @@ import com.projectreap.ProjectReap.entity.User;
 import com.projectreap.ProjectReap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
@@ -17,19 +19,23 @@ public class UserController {
         return "reap";
     }
 
-//
-//    @GetMapping("/users")
-//    public User saveUser(@ModelAttribute("user") User user){
-//        return userService.update(user);
-//    }
-//
-
     /* Saved data of user registered in DB*/
     @PostMapping("/usersubmit")
-    @ResponseBody
-    public String getEmployeedetails(@ModelAttribute("user") User user) {
-        userService.update(user);
-        System.out.println(user);
-        return "Hello User";
+     public ModelAndView createUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
+        ModelAndView modelAndView=new ModelAndView();
+        User userExists= userService.findByUsername(user.getUserName());
+
+        if(userExists!=null){
+            bindingResult.rejectValue("userName","error.user","This Username already exists!");
+        }
+        if(bindingResult.hasErrors()){
+            modelAndView.setViewName("reap");
+        }
+        else{
+            userService.update(user);
+            modelAndView.setViewName("success");
+        }
+        return modelAndView;
     }
+
 }
