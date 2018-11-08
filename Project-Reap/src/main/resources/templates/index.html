@@ -7,8 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>REAP</title>
     <link th:href="@{'/stylesheets/application.css'}" rel="stylesheet"/>
-    <link th:href="@{'/bootstrap-3.3.7-dist/css/bootstrap.css'}" rel="stylesheet"/>
     <script th:src="@{'/javascript/jquery-3.3.1.min.js'}"></script>
+    <script th:src="@{'/javascript/application.js'}"></script>
+    <link th:href="@{'/bootstrap-3.3.7-dist/css/bootstrap.css'}" rel="stylesheet"/>
     <script th:src="@{'/bootstrap-3.3.7-dist/js/bootstrap.js'}"></script>
 
 </head>
@@ -16,49 +17,58 @@
 <body>
 <div id="container-fluid">
     <!--Header Section-->
-    <header th:insert="layouts/index.html :: header"></header>
-    <div id="middle-section">
-        <div id="imagelogo">
-            <img th:src="@{'/images/reapLogo.jpg'}">
-            <div id="container">
+    <header th:insert="layouts/common.html :: header"></header>
+    <div class="middle-section">
+
+        <div id="banner">
+
+            <div class="container">
                 <!-- LOGIN SECTION -->
                 <div class="login">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login">
-                        Login
-                    </button>
-
+                    <a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#login">
+                        <span class="glyphicon glyphicon-log-in"></span> Log in
+                    </a>
                     <!-- Modal -->
-                    <div class="modal fade" id="login" role="dialog">
+                    <div class="modal fade" id="login" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
 
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <button type="button" class="close" id="mod_cls" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">Login</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- <p>Invitation Sent Successfully!</p> -->
+
                                     <div class="panel panel-primary">
-                                        <!--<div class="panel-heading">Login</div>-->
+
                                         <div class="panel-body">
 
 
-                                            <form class="form-horizontal" th:action="@{'/usersubmit'}" method="post">
+                                            <form class="form-horizontal" th:action="@{'/login'}" th:object="${user}"
+                                                  method="post" autocomplete="off" id="signInForm">
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-success" role="alert" th:if="${msg}"
+                                                         th:utext="${msg}"></div>
+                                                </div>
+
+
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-2"
-                                                           for="userName">Username:</label>
+                                                           for="userName">Username:<span>*</span></label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="userName"
+                                                        <input type="text" th:field="*{userName}" class="form-control"
+                                                               id="userName"
                                                                placeholder="Enter Username"
                                                                name="username">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-2"
-                                                           for="loginpwd">Password:</label>
+                                                           for="loginpwd">Password:<span>*</span></label>
                                                     <div class="col-sm-10">
-                                                        <input type="password" class="form-control" id="loginpwd"
+                                                        <input type="password" th:field="*{password}"
+                                                               class="form-control" id="loginpwd"
                                                                placeholder="Enter Password"
                                                                name="password">
                                                     </div>
@@ -69,7 +79,7 @@
                                                     <div class="form-group">
                                                         <a href="#" data-toggle="modal" data-target="#forgotPassword">Forgot
                                                             Password</a>
-                                                        <button type="submit" class="btn btn-primary">Sign In</button>
+                                                        <button type="submit" id="submitForm" class="btn btn-primary">Sign In</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -82,9 +92,10 @@
                 </div>
                 <!-- SIGNUP SECTION -->
                 <div class="signUp">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup">
-                        Sign Up
-                    </button>
+
+                    <a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#signup">
+                        <span class="glyphicon glyphicon-registration-mark"></span> Register
+                    </a>
                     <div class="modal fade" id="signup" role="dialog">
                         <div class="modal-dialog">
 
@@ -92,48 +103,97 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Sign Up</h4>
+                                    <h4 class="modal-title">Register</h4>
                                 </div>
                                 <div class="modal-body">
+
 
                                     <div class="panel panel-primary">
                                         <!--<div class="panel-heading">Sign Up</div>-->
                                         <div class="panel-body">
 
 
-                                            <form enctype="multipart/form-data" class="form-horizontal"
-                                                  th:action="@{'/usersubmit'}" th:Object="${user}" method="post">
+                                            <form id="registeration" enctype="multipart/form-data" class="form-horizontal"
+                                                   th:Object="${user}" method="post"
+                                                  autocomplete="off">
+
+                                                <!--<div class="form-group">-->
+                                                <!--<div class="col-sm-10">-->
+                                                <!--<div class="alert alert-success" role="alert" th:if="${message}"-->
+                                                <!--th:text="${message}"></div>-->
+                                                <!--</div>-->
+                                                <!--</div>-->
+
                                                 <!-- FirstName -->
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-2"
-                                                           for="firstName">FirstName:</label>
+                                                           for="firstName">FirstName:<span>*</span></label>
                                                     <div class="col-sm-10">
                                                         <input type="text" th:field="*{firstName}" class="form-control"
-                                                               id="firstName" placeholder="Enter FirstName"
-                                                               name="email">
+                                                               id="firstName" placeholder="Enter FirstName">
+
                                                     </div>
                                                 </div>
+
                                                 <!-- LastName -->
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-2"
-                                                           for="lastName">LastName:</label>
+                                                           for="lastName">LastName:<span>*</span></label>
                                                     <div class="col-sm-10">
                                                         <input type="text" th:field="*{lastName}" class="form-control"
-                                                               id="lastName" placeholder="Enter LastName"
-                                                               name="email">
+                                                               id="lastName" placeholder="Enter LastName">
+
                                                     </div>
                                                 </div>
 
                                                 <!-- UserName -->
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-2"
-                                                           for="userNameSign">UserName:</label>
+                                                           for="userNameSign">UserName:<span>*</span></label>
                                                     <div class="col-sm-10">
                                                         <input type="text" th:field="*{userName}" class="form-control"
-                                                               id="userNameSign" placeholder="Enter UserName"
-                                                               name="email">
+                                                               id="userNameSign" placeholder="Enter UserName" required>
+
                                                     </div>
                                                 </div>
+
+                                                <!-- Email Address -->
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2"
+                                                           for="email">Email:<span>*</span></label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" th:field="*{email}" class="form-control"
+                                                               id="email"
+                                                               placeholder="abc@tothenew.com">
+
+                                                    </div>
+                                                </div>
+
+                                                <!--UserName ALready exists error message!!-->
+                                                <div class="form-group">
+                                                    <div class="col-md-10">
+                                                        <div class="form-control-feedback">
+                                                <span class="text-danger align-middle"
+                                                      th:if="${#fields.hasErrors('userName')}"
+                                                      th:errors="*{userName}">
+
+                                                </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Password -->
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2"
+                                                           for="pwd">Password:<span>*</span></label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" th:field="*{password}"
+                                                               class="form-control"
+                                                               id="pwd" placeholder="Enter Password" required>
+
+                                                    </div>
+                                                </div>
+
                                                 <!-- Add Photo -->
                                                 <div class="form-group">
                                                     <div class="custom-file">
@@ -145,32 +205,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Email Address -->
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-2" for="email">Email:</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="email" th:field="*{email}" class="form-control"
-                                                               id="email"
-                                                               placeholder="abc@tothenew.com"
-                                                               name="email">
-                                                    </div>
-                                                </div>
-                                                <!-- Password -->
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-2" for="pwd">Password:</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="password" th:field="*{password}"
-                                                               class="form-control"
-                                                               id="pwd" placeholder="Enter Password"
-                                                               name="pwd">
-                                                    </div>
-                                                </div>
 
 
                                                 <div class="modal-footer">
                                                     <div class="form-group">
                                                         <div class="col-sm-offset-2 col-sm-10">
-                                                            <button type="submit" class="btn btn-primary">Register
+                                                            <button id="signin" type="button" class="btn btn-primary"
+                                                                   onclick="SaveForm()" >
+                                                                Register
                                                             </button>
                                                         </div>
                                                     </div>
@@ -186,7 +228,7 @@
                 </div>
 
                 <!-- FORGOT PASSWORD MODAL SECTION -->
-                <div class="modal fade" id="forgotPassword" role="dialog">
+                <div class="modal fade" id="forgotPassword" role="dialog" style="background-color: beige">
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
@@ -199,13 +241,13 @@
                                 <!-- <p>Invitation Sent Successfully!</p> -->
                                 <div class="panel panel-primary">
                                     <div class="panel-body">
-                                        <form class="form-horizontal" action="#">
+                                        <form class="form-horizontal" action="#" autocomplete="off">
                                             <div class="form-group">
                                                 <label class="control-label col-sm-2" for="email">Email:</label>
                                                 <div class="col-sm-10">
                                                     <input type="email" class="form-control" id="email"
                                                            placeholder="abc@tothenew.com"
-                                                           name="email">
+                                                           name="email" required>
                                                 </div>
                                             </div>
 
@@ -228,10 +270,11 @@
                 </div>
 
             </div>
+
         </div>
 
     </div>
-    <footer th:insert="layouts/index.html :: footer"></footer>
+    <footer th:insert="layouts/common.html :: footer"></footer>
 </div>
 </body>
 

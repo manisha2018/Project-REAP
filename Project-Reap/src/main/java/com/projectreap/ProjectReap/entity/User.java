@@ -1,9 +1,11 @@
 package com.projectreap.ProjectReap.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.projectreap.ProjectReap.enums.Role;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
@@ -11,12 +13,29 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    //@Size()
+
+    @NotEmpty(message = "Please provide your first name")
+    @NotNull
     private String firstName;
+
+    @NotEmpty(message = "Please provide your last name")
+
     private String lastName;
+
+    @NotNull
     private String userName;
+
+    @Email(message = "Please provide a valid e-mail")
+    @NotEmpty(message = "Please provide an e-mail")
+    @NotNull
     private String email;
+
+    @NotNull
     private String password;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public User() {
     }
@@ -75,6 +94,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

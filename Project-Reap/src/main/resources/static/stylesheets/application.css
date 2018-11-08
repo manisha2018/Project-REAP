@@ -3,24 +3,61 @@ body, html {
     margin: 0;
 }
 
-footer {
-    background-color: aquamarine;
+/*Header Section */
+.container-fluid form {
+    float: right !important;
 }
 
-/* #imagelogo img{
-    position: relative;
-} */
-#container {
-    margin-left: 20%;
+.navbar-brand{
     display: flex;
-    /* position:absolute; */
-    z-index: 1;
 }
-
 .navbar-brand img {
     height: 155%;
 }
 
-.container-fluid form {
-    float: right !important;
+#header form .btn:hover{
+    text-decoration-style: solid;
+    color:red;
+    background-color:white;
+}
+
+
+/*Middle Section*/
+
+#banner {
+    background-image: url("/images/backgroundLock.jpg");
+    height: 700px;
+    background-size: 100% 100%;
+    position: relative;
+    text-align: center;
+    /*margin-bottom: 50px;*/
+}
+
+#banner .container {
+    position: absolute;
+    bottom: 428px;
+    margin-left: -150px;
+    display: flex;
+    justify-content: space-around;
+    /* left: 50%; */
+}
+
+.modal-body span{
+    color: red;
+}
+
+/*Footer Section*/
+
+footer {
+    background-color: black;
+}
+
+.py-3 h4{
+    color: white;
+}
+
+/*User dashboard*/
+
+.dashboard-section{
+    background-color: grey;
 }
